@@ -19,9 +19,9 @@ MonoBehaviour:
       m_GuidLow: 4700355875484405660
       m_GuidHigh: 14970839507996518075
     m_SerializedTextureGuid:
-      m_GuidLow: 1500277587577792010
-      m_GuidHigh: 11592404466005634936
-    m_Size: {x: 0.02, y: 0.011757812}
+      m_GuidLow: 348012275422645662
+      m_GuidHigh: 11186161257877253275
+    m_Size: {x: 0.05842, y: 0.05415809}
     m_SpecifySize: 1
     m_Name: TestMarker
     m_Texture: {fileID: 0}

@@ -10,16 +10,19 @@ public class ImageAnchorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        imagePosition = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
         GameObject anchor = GameObject.FindWithTag("Anchor");
-        imagePosition = anchor.transform.position;
+        if(anchor != null)
+            imagePosition = anchor.transform.position;
+
         if (anchor != null && Vector3.Distance(Camera.main.transform.position, imagePosition) < distance)
         {
+            //imagePosition = anchor.transform.position;
             Experience.SetActive(true);
             Experience.transform.position = anchor.transform.position;
             Experience.transform.rotation = anchor.transform.rotation;

@@ -28,11 +28,23 @@ public class BringToFront : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.touchCount > 0)
-        if(Input.GetMouseButtonUp(0))
+        if(Input.touchCount > 0)
+        //if(Input.GetMouseButtonUp(0))
         {
-            //if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            if(Input.GetMouseButtonUp(0))
+            if (isObjectInFront && objectInFront.tag == "Model" && Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                float xDelta = Input.GetTouch(0).deltaPosition.x;
+                float yDelta = Input.GetTouch(0).deltaPosition.y;
+
+                Quaternion original_rotation = objectInFront.transform.rotation;
+                Quaternion temp_rotation = objectInFront.transform.rotation;
+
+                objectInFront.transform.rotation *= Quaternion.AngleAxis(-xDelta / 3, Vector3.forward);
+            }
+
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            //if(Input.GetMouseButtonUp(0))
             {
                 if (isObjectInFront)
                 {
@@ -72,9 +84,23 @@ public class BringToFront : MonoBehaviour
                             if (hit.transform.gameObject.GetComponent<VideoPlayer>())
                             {
                                 hit.transform.gameObject.GetComponent<VideoPlayer>().SetDirectAudioMute(0, false);
+                                hit.transform.gameObject.GetComponent<VideoPlayer>().Stop();
+                                hit.transform.gameObject.GetComponent<VideoPlayer>().Play();
                             }
+                            banner = hit.transform.GetChild(0).gameObject;
                             banner.SetActive(true);
-                            bannerText.text = hit.transform.gameObject.name;
+                            //bannerText.text = hit.transform.gameObject.name;
+                        }
+                        else if (hit.transform.tag == "Model")
+                        {
+                            originalPosition = hit.transform.localPosition;
+                            originalRotation = hit.transform.localRotation;
+                            originalParent = hit.transform.parent;
+                            hit.transform.parent = null;
+                            hit.transform.position = camera.transform.position + camera.transform.forward * distance;
+                            //hit.transform.LookAt(Camera.main.transform, hit.transform.right);
+                            hit.transform.localEulerAngles = new Vector3(-camera.transform.localEulerAngles.x + 90, camera.transform.localEulerAngles.y + 180, camera.transform.localEulerAngles.z);
+                            objectInFront = hit.transform.gameObject;
                         }
                     }
                     isObjectInFront = true;

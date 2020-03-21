@@ -26,8 +26,9 @@ public class ImageAnchorManager : MonoBehaviour
             Experience.SetActive(true);
             Experience.transform.position = anchor.transform.position;
             Experience.transform.rotation = anchor.transform.rotation;
-            Experience.transform.localScale = anchor.transform.localScale;
+            //Experience.transform.localScale = anchor.transform.localScale;
             imagePosition = Experience.transform.position;
+            Experience.transform.eulerAngles = new Vector3(-90, Experience.transform.eulerAngles.y, Experience.transform.eulerAngles.z);
         }
 
         if(Vector3.Distance(Camera.main.transform.position, imagePosition) > distance)
